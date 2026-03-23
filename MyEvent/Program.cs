@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using LibrarieModele;
 using NivelStocareDate;
+using System.Linq;
 
 namespace EvidentaEvenimente
 {
@@ -60,9 +61,36 @@ namespace EvidentaEvenimente
             Console.WriteLine("\n--- Introducere manuala date ---");
 
             Console.Write("Nume: "); string nume = Console.ReadLine();
-            Console.Write("Tip: "); string tip = Console.ReadLine();
+           // Console.Write("Tip: "); string tip = Console.ReadLine();
             Console.Write("Organizator: "); string organizator = Console.ReadLine();
             Console.Write("Locatie: "); string locatie = Console.ReadLine();
+
+
+            CategorieEveniment tipSelectat = CategorieEveniment.Divertisment;
+            bool tipValid = false;
+            while (!tipValid)
+            {
+                try
+                {
+                    Console.WriteLine("Tipuri disponibile: 1-Cultural, 2-Sportiv, 3-Stiintific, 4-Divertisment");
+                    Console.Write("Alegeti tipul (cifra): ");
+                    int optiuneTip = int.Parse(Console.ReadLine()); // Aruncă FormatException dacă nu e cifră
+
+                    if (Enum.IsDefined(typeof(CategorieEveniment), optiuneTip))
+                    {
+                        tipSelectat = (CategorieEveniment)optiuneTip;
+                        tipValid = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Eroare: Cifra introdusa nu este in lista.");
+                    }
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Introdu rating-uri de la participanti (ex: 4 5 3 5):");
+                }
+            }
 
             Console.Write("Nr. Invitati: ");
             int.TryParse(Console.ReadLine(), out int nr);
@@ -71,8 +99,7 @@ namespace EvidentaEvenimente
             Console.Write("Data (format AN-LUNA-ZI, ex: 2026-05-20): ");
             string dataCitita = Console.ReadLine();
 
-            // Inceracam sa convertim ce a scris utilizatorul. 
-            // Daca nu reuseste, va pune data de azi ca "siguranta".
+       
             DateTime dataFinala;
             if (!DateTime.TryParse(dataCitita, out dataFinala))
             {
@@ -80,15 +107,24 @@ namespace EvidentaEvenimente
                 Console.WriteLine("Format data invalid! S-a folosit data curenta.");
             }
 
-            return new Eveniment
+            Console.Write("Introdu rating-uri de la participanti (ex: 4 5 3 5): ");
+            string input = Console.ReadLine() ?? "";
+            int[] ratings = input.Split(' ')
+                     .Where(s => !string.IsNullOrWhiteSpace(s))
+                     .Select(n => int.TryParse(n, out int r) ? r : 0)
+                     .ToArray();
+
+            Eveniment ev = new Eveniment
             {
                 NumeEveniment = nume,
-                TipEveniment = tip,
+                Tip = tipSelectat,
                 Organizator = organizator,
                 Locatie = locatie,
                 NrInvitati = nr,
                 DataEveniment = dataFinala // Aici punem data aleasa de tine
             };
+            ev.SetRatinguri(ratings);
+            return ev;
         }
     }
 }
