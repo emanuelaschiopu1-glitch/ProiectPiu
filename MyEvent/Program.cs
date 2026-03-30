@@ -103,9 +103,9 @@ namespace EvidentaEvenimente
             Console.Write("Introdu rating-uri de la participanti (ex: 4 5 3 5): ");
             string input = Console.ReadLine() ?? "";
             int[] ratings = input.Split(' ')
-                     .Where(s => !string.IsNullOrWhiteSpace(s))
+                     .Where(s => !string.IsNullOrWhiteSpace(s)) //elimina spatiile libere
                      .Select(n => int.TryParse(n, out int r) ? r : 0)
-                     .ToArray();
+                     .ToArray(); //rez corect 
 
             Eveniment ev = new Eveniment
             {

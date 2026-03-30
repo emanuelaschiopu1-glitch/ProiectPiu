@@ -8,31 +8,40 @@ namespace NivelStocareDate
 {
     public class AdministrareEvenimenteFisierText : IStocareData
     {
+        private const int ID_PRIMUL_EVENIMENT = 1;
+        private const int INCREMENT = 1;
         private string numeFisier;
-        private string numeFisierOrgs = "Organizatori.txt";
 
         public AdministrareEvenimenteFisierText(string numeFisier)
         {
             this.numeFisier = numeFisier;
+            // Creează fișierul dacă nu există
             Stream s = File.Open(numeFisier, FileMode.OpenOrCreate);
             s.Close();
         }
 
+
+        //scrierea in fisier
         public void AddEveniment(Eveniment ev)
         {
             ev.IdEveniment = GetNextId();
+
             using (StreamWriter sw = new StreamWriter(numeFisier, true))
             {
                 sw.WriteLine(ev.ConversieLaSirPentruFisier());
             }
         }
 
+
+        //citirea
         public List<Eveniment> GetEvenimente()
         {
             List<Eveniment> lista = new List<Eveniment>();
+
             using (StreamReader sr = new StreamReader(numeFisier))
             {
                 string linie;
+                // Citim linie cu linie până la final
                 while ((linie = sr.ReadLine()) != null)
                 {
                     lista.Add(new Eveniment(linie));
@@ -43,24 +52,38 @@ namespace NivelStocareDate
 
         public Eveniment GetEveniment(string nume)
         {
-            // Folosim metoda GetEvenimente() nu o variabila locala!
-            return GetEvenimente().FirstOrDefault(e => e.NumeEveniment.Equals(nume, StringComparison.OrdinalIgnoreCase));
+            using (StreamReader sr = new StreamReader(numeFisier))
+            {
+                string linie;
+                while ((linie = sr.ReadLine()) != null)
+                {
+                    Eveniment ev = new Eveniment(linie);
+                    if (ev.NumeEveniment.Equals(nume, StringComparison.OrdinalIgnoreCase))
+                        return ev;
+                }
+            }
+            return null;
         }
 
+
+        // modificarea datelor 
         public bool UpdateEveniment(Eveniment evModificat)
         {
             List<Eveniment> lista = GetEvenimente();
             bool succes = false;
+
+       
             using (StreamWriter sw = new StreamWriter(numeFisier, false))
             {
-                foreach (var e in lista)
+                foreach (Eveniment ev in lista)
                 {
-                    if (e.IdEveniment == evModificat.IdEveniment)
+                    Eveniment deScris = ev;
+                    if (ev.IdEveniment == evModificat.IdEveniment)
                     {
-                        sw.WriteLine(evModificat.ConversieLaSirPentruFisier());
+                        deScris = evModificat;
                         succes = true;
                     }
-                    else sw.WriteLine(e.ConversieLaSirPentruFisier());
+                    sw.WriteLine(deScris.ConversieLaSirPentruFisier());
                 }
             }
             return succes;
@@ -68,28 +91,12 @@ namespace NivelStocareDate
 
         private int GetNextId()
         {
-            var lista = GetEvenimente();
-            return (lista.Count == 0) ? 1 : lista.Max(e => e.IdEveniment) + 1;
-        }
-
-        /* public void AddOrganizator(Organizator org)
-        {
-            using (StreamWriter sw = new StreamWriter(numeFisierOrgs, true))
+            List<Eveniment> lista = GetEvenimente();
+            if (lista.Count == 0)
             {
-                sw.WriteLine(org.ConversieLaSirPentruFisier());
+                return ID_PRIMUL_EVENIMENT;
             }
+            return lista.Last().IdEveniment + INCREMENT; // Atenție aici la numele proprietății (IdEveniment)
         }
-
-        *public List<Organizator> GetOrganizatori()
-        {
-            List<Organizator> lista = new List<Organizator>();
-            if (!File.Exists(numeFisierOrgs)) return lista;
-            using (StreamReader sr = new StreamReader(numeFisierOrgs))
-            {
-                string linie;
-                while ((linie = sr.ReadLine()) != null) { lista.Add(new Organizator(linie)); }
-            }
-            return lista;
-        }*/
     }
 }

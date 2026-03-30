@@ -92,7 +92,7 @@ namespace LibrarieModele
 
 
 
-        // Metoda Stil "ExtrageNote"
+        // Extrage ratinguri
         public void ExtrageRatinguri(string sirRatinguri, char delimitator = ',')
         {
             List<int> listaNote = new List<int>();
