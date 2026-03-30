@@ -8,6 +8,6 @@ namespace NivelStocareDate
         void AddEveniment(Eveniment ev);
         List<Eveniment> GetEvenimente();
         Eveniment GetEveniment(string nume);
-        List<Eveniment> GetEvenimenteNume(string nume);
+        bool UpdateEveniment(Eveniment evModificat);
     }
 }

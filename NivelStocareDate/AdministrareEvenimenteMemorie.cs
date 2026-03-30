@@ -22,15 +22,32 @@ namespace NivelStocareDate
 
         public List<Eveniment> GetEvenimente() => evenimente;
 
-        public Eveniment GetEveniment(string nume) =>
-            evenimente.FirstOrDefault(e => e.NumeEveniment.Equals(nume, StringComparison.OrdinalIgnoreCase));
-
+        
         public List<Eveniment> GetEvenimenteDupaCategorie(CategorieEveniment categorie)
         {
-            
+
             return evenimente.Where(e => e.Tip == categorie).ToList();
         }
         public List<Eveniment> GetEvenimenteNume(string nume) =>
             evenimente.Where(e => e.NumeEveniment.Contains(nume, StringComparison.OrdinalIgnoreCase)).ToList();
+
+        // Metoda pentru cautare
+        public Eveniment GetEveniment(string nume)
+        {
+            return evenimente.FirstOrDefault(e => e.NumeEveniment.Equals(nume, StringComparison.OrdinalIgnoreCase));
+        }
+
+        // Metoda pentru modificare
+        public bool UpdateEveniment(Eveniment evModificat)
+        {
+            var index = evenimente.FindIndex(e => e.IdEveniment == evModificat.IdEveniment);
+            if (index != -1)
+            {
+                evenimente[index] = evModificat;
+                return true;
+            }
+            return false;
+        }
     }
+
 }

@@ -95,17 +95,10 @@ namespace EvidentaEvenimente
             Console.Write("Nr. Invitati: ");
             int.TryParse(Console.ReadLine(), out int nr);
 
-            // CITIERE MANUALA DATA
-            Console.Write("Data (format AN-LUNA-ZI, ex: 2026-05-20): ");
-            string dataCitita = Console.ReadLine();
+            
 
        
-            DateTime dataFinala;
-            if (!DateTime.TryParse(dataCitita, out dataFinala))
-            {
-                dataFinala = DateTime.Now;
-                Console.WriteLine("Format data invalid! S-a folosit data curenta.");
-            }
+           
 
             Console.Write("Introdu rating-uri de la participanti (ex: 4 5 3 5): ");
             string input = Console.ReadLine() ?? "";
@@ -121,7 +114,7 @@ namespace EvidentaEvenimente
                 Organizator = organizator,
                 Locatie = locatie,
                 NrInvitati = nr,
-                DataEveniment = dataFinala // Aici punem data aleasa de tine
+              
             };
             ev.SetRatinguri(ratings);
             return ev;
