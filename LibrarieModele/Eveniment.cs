@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-
+using System.Collections.Generic;
 namespace LibrarieModele
 {
 
@@ -35,6 +35,8 @@ namespace LibrarieModele
         private int[] ratinguri;
 
         //proprietati
+
+        public List<Participant> Participanti { get; set; } = new List<Participant>();
         public int IdEveniment { get; set; }
         public string NumeEveniment { get; set; }
         public CategorieEveniment Tip { get; set; }
@@ -47,7 +49,22 @@ namespace LibrarieModele
         public double RatingMediu => (ratinguri != null && ratinguri.Any()) ? ratinguri.Average() : 0;
 
 
+        public void AdaugaParticipant(Participant p)
+        {
+            Participanti.Add(p);
+        }
+        public string AfiseazaParticipanti()
+        {
+            if (Participanti.Count == 0)
+                return "Nu exista participanti.";
 
+            string rezultat = "Participanti:\n";
+
+            foreach (var p in Participanti)
+                rezultat += p.Info() + "\n";
+
+            return rezultat;
+        }
         public Eveniment()
         {
             NumeEveniment = string.Empty;

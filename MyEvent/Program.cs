@@ -61,7 +61,7 @@ namespace EvidentaEvenimente
             Console.WriteLine("\n--- Introducere manuala date ---");
 
             Console.Write("Nume: "); string nume = Console.ReadLine();
-           // Console.Write("Tip: "); string tip = Console.ReadLine();
+            // Console.Write("Tip: "); string tip = Console.ReadLine();
             Console.Write("Organizator: "); string organizator = Console.ReadLine();
             Console.Write("Locatie: "); string locatie = Console.ReadLine();
 
@@ -95,10 +95,10 @@ namespace EvidentaEvenimente
             Console.Write("Nr. Invitati: ");
             int.TryParse(Console.ReadLine(), out int nr);
 
-            
 
-       
-           
+
+
+
 
             Console.Write("Introdu rating-uri de la participanti (ex: 4 5 3 5): ");
             string input = Console.ReadLine() ?? "";
@@ -107,6 +107,8 @@ namespace EvidentaEvenimente
                      .Select(n => int.TryParse(n, out int r) ? r : 0)
                      .ToArray(); //rez corect 
 
+
+
             Eveniment ev = new Eveniment
             {
                 NumeEveniment = nume,
@@ -114,10 +116,27 @@ namespace EvidentaEvenimente
                 Organizator = organizator,
                 Locatie = locatie,
                 NrInvitati = nr,
-              
+
             };
             ev.SetRatinguri(ratings);
             return ev;
         }
+        static Participant CitireParticipant()
+        {
+            Console.WriteLine("\n--- Introducere participant ---");
+            Console.Write("Nume: "); string nume = Console.ReadLine();
+            Console.Write("Email: "); string email = Console.ReadLine();
+            Console.Write("Varsta: "); int.TryParse(Console.ReadLine(), out int varsta);
+
+            return new Participant
+            {
+                Nume = nume,
+                Email = email,
+                Varsta = varsta
+            };
+
+        }
     }
 }
+
+
