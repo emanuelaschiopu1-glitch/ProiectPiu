@@ -43,6 +43,12 @@
                 <Label x:Name="lblLocatie" Content="Locație:"/>
                 <TextBox x:Name="txtLocatie" Height="30" VerticalContentAlignment="Center"/>
 
+                <Label Content="Categorie Eveniment (ListBox):"/>
+                <ListBox x:Name="lstTipuri" Height="80" Margin="0,5" SelectionMode="Single"/>
+
+                <Label Content="Data Eveniment (DatePicker):"/>
+                <DatePicker x:Name="dtpDataEveniment" Height="30" Margin="0,5"/>
+                
                 <Label Content="Tip Acces:"/>
                 <StackPanel Orientation="Horizontal" Margin="0,5">
                     <RadioButton x:Name="rbPublic" Content="Public" IsChecked="True" Margin="0,0,15,0"/>
@@ -58,6 +64,11 @@
             <StackPanel Grid.Column="1" Margin="10">
                 <TextBlock Text="Panou Control" FontSize="22" Foreground="#2F5D50" FontWeight="Bold" Margin="0,0,0,15"/>
 
+                <Label Content="✏️ Selectează pentru MODIFICARE (ComboBox):"/>
+                <ComboBox x:Name="cmbEvenimenteModificare" Height="30" Margin="0,5" 
+              DisplayMemberPath="NumeEveniment" 
+              SelectionChanged="cmbEvenimenteModificare_SelectionChanged"/>
+                
                 <Label Content="🔍 Căutare rapidă (după nume):"/>
                 <TextBox x:Name="txtCautare" Height="35" Margin="0,5" VerticalContentAlignment="Center" 
                          TextChanged="txtCautare_TextChanged" BorderBrush="#2F5D50"/>

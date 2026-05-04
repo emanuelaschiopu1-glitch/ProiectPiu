@@ -94,5 +94,19 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LibrarieModele\LibrarieModele.csproj">
+      <Project>{0048b3b5-e7c9-4206-862d-c4f1bbe5f2ba}</Project>
+      <Name>LibrarieModele</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyEvent\MyEvent.csproj">
+      <Project>{47a14916-58ce-43b3-95fa-d02674487f22}</Project>
+      <Name>MyEvent</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NivelStocareDate\NivelStocareDate.csproj">
+      <Project>{4e45d05d-ee49-4018-9063-024732dcecb7}</Project>
+      <Name>NivelStocareDate</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

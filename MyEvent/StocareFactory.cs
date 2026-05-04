@@ -1,5 +1,6 @@
 ﻿using NivelStocareDate;
 using System.Configuration;
+using System.IO;
 
 namespace EvidentaEvenimente
 {
