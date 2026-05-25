@@ -1,16 +1,24 @@
-﻿using System;
+﻿using LibrarieModele; // Asigură-te că proiectul tău are referință către LibrarieModele
+using NivelStocareDate; // Asigură-te că proiectul tău are referință către NivelStocareDate
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using LibrarieModele; // Asigură-te că proiectul tău are referință către LibrarieModele
-using NivelStocareDate; // Asigură-te că proiectul tău are referință către NivelStocareDate
 
 namespace WpfApp1
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
+
+        private Participant _participantNou = new Participant();
+        public Participant ParticipantNou
+        {
+            get => _participantNou;
+            set { _participantNou = value; OnPropertyChanged("ParticipantNou"); }
+        }
         // 1. Declarația pentru stocarea în fișier (Rezolvă eroarea 'adminEvenimente' does not exist)
         IStocareData adminEvenimente = new AdministrareEvenimenteFisierText("evenimente.txt");
 
@@ -23,7 +31,7 @@ namespace WpfApp1
 
             // Populare ListBox cu valorile din Enum
             lstTipuri.ItemsSource = Enum.GetValues(typeof(CategorieEveniment));
-
+            this.DataContext = this; // Esențial pentru Binding
             // Încărcare inițială a datelor
             IncarcaDate();
         }
@@ -155,5 +163,24 @@ namespace WpfApp1
         {
             Application.Current.Shutdown();
         }
+        private void btnSalveazaParticipant_Click(object sender, RoutedEventArgs e)
+        {
+            // Datorită Binding-ului, obiectul ParticipantNou este deja populat
+            adminEvenimente.
+                AddParticipant(ParticipantNou);
+            MessageBox.Show($"Salvat: {ParticipantNou.Nume}");
+
+            // Resetăm obiectul pentru o nouă introducere
+            ParticipantNou = new Participant();
+        }
+
+        // Implementare necesară pentru ca UI-ul să afle când se schimbă datele în cod
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+
     }
 }

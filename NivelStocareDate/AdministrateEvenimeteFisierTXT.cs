@@ -98,5 +98,43 @@ namespace NivelStocareDate
             }
             return lista.Last().IdEveniment + INCREMENT; // Atenție aici la numele proprietății (IdEveniment)
         }
+
+        private string numeFisierParticipanti = "participanti.txt";
+
+        public void AddParticipant(Participant p)
+        {
+            using (StreamWriter sw = new StreamWriter(numeFisierParticipanti, true))
+            {
+                // Format: Nume;Email;Varsta
+                sw.WriteLine($"{p.Nume};{p.Email};{p.Varsta}");
+            }
+        }
+
+        public List<Participant> GetParticipanti()
+        {
+            List<Participant> lista = new List<Participant>();
+            if (!File.Exists(numeFisierParticipanti)) return lista;
+
+            foreach (var linie in File.ReadAllLines(numeFisierParticipanti))
+            {
+                var date = linie.Split(';');
+                if (date.Length == 3)
+                    lista.Add(new Participant { Nume = date[0], Email = date[1], Varsta = int.Parse(date[2]) });
+            }
+            return lista;
+        }
+
+        public bool DeleteParticipant(string email)
+        {
+            var participanti = GetParticipanti();
+            var deSters = participanti.FirstOrDefault(p => p.Email == email);
+            if (deSters != null)
+            {
+                participanti.Remove(deSters);
+                File.WriteAllLines(numeFisierParticipanti, participanti.Select(p => $"{p.Nume};{p.Email};{p.Varsta}"));
+                return true;
+            }
+            return false;
+        }
     }
 }

@@ -45,6 +45,21 @@ namespace NivelStocareDate
             }
             return false;
         }
+        // Adaugă aceste metode în AdministrareEvenimenteMemorie.cs
+        public void AddParticipant(Participant p)
+        {
+            // Opțional: poți adăuga o listă privată de participanți aici
+        }
+
+        public List<Participant> GetParticipanti()
+        {
+            return new List<Participant>();
+        }
+
+        public bool DeleteParticipant(string email)
+        {
+            return false;
+        }
     }
 
 }
