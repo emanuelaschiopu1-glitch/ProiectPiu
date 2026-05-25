@@ -88,10 +88,30 @@
                 <TextBlock Text="Adaugă Participant (Entitatea 2)" FontSize="16" Foreground="#2F5D50" FontWeight="Bold" Margin="0,5"/>
 
                 <Label Content="Nume Participant:"/>
-                <TextBox Text="{Binding ParticipantNou.Nume, UpdateSourceTrigger=PropertyChanged}" Height="25"/>
+                <TextBox Height="25" 
+         Text="{Binding ParticipantNou.Nume, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <AdornedElementPlaceholder x:Name="textBox"/>
+                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" FontSize="10"/>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </TextBox>
 
                 <Label Content="Email:"/>
-                <TextBox Text="{Binding ParticipantNou.Email, UpdateSourceTrigger=PropertyChanged}" Height="25"/>
+                <TextBox Height="25" 
+         Text="{Binding ParticipantNou.Email, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}">
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <AdornedElementPlaceholder x:Name="textBox"/>
+                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" FontSize="10"/>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </TextBox>
 
                 <Button Content="💾 Salvează Participant" Click="btnSalveazaParticipant_Click" Margin="0,15,0,0"/>
             </StackPanel>

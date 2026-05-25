@@ -7,6 +7,8 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+//using ViewModel;
+
 
 namespace WpfApp1
 {
@@ -24,14 +26,15 @@ namespace WpfApp1
 
         private const int MAX_LUNGIME_NUME = 15;
         private readonly SolidColorBrush culoareVerde = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#2F5D50"));
-
+        MainViewModel viewModel = new MainViewModel();
         public MainWindow()
         {
             InitializeComponent();
 
             // Populare ListBox cu valorile din Enum
             lstTipuri.ItemsSource = Enum.GetValues(typeof(CategorieEveniment));
-            this.DataContext = this; // Esențial pentru Binding
+            //this.DataContext = this; // Esențial pentru Binding
+            this.DataContext = viewModel;
             // Încărcare inițială a datelor
             IncarcaDate();
         }
