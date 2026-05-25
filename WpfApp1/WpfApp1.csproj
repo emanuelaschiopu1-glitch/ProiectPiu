@@ -55,7 +55,31 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AfisareEvenimente.xaml.cs">
+      <DependentUpon>AfisareEvenimente.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AfisareParticipanti.xaml.cs">
+      <DependentUpon>AfisareParticipanti.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EvenimentWindow.xaml.cs">
+      <DependentUpon>EvenimentWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ParticipantWindow.xaml.cs">
+      <DependentUpon>ParticipantWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel.cs" />
+    <Page Include="AfisareEvenimente.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AfisareParticipanti.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EvenimentWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -68,6 +92,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ParticipantWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -99,10 +127,6 @@
     <ProjectReference Include="..\LibrarieModele\LibrarieModele.csproj">
       <Project>{0048b3b5-e7c9-4206-862d-c4f1bbe5f2ba}</Project>
       <Name>LibrarieModele</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MyEvent\MyEvent.csproj">
-      <Project>{47a14916-58ce-43b3-95fa-d02674487f22}</Project>
-      <Name>MyEvent</Name>
     </ProjectReference>
     <ProjectReference Include="..\NivelStocareDate\NivelStocareDate.csproj">
       <Project>{4e45d05d-ee49-4018-9063-024732dcecb7}</Project>

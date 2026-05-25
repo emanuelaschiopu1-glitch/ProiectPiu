@@ -1,0 +1,15 @@
+﻿<Window x:Class="WpfApp1.AfisareParticipanti"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Lista Participanti" Height="300" Width="400">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <ListBox x:Name="lstParticipanti" Grid.Row="0" Margin="0,0,0,10"/>
+
+        <Button Content="Închide" Grid.Row="1" Width="100" Click="Close_Click"/>
+    </Grid>
+</Window>
